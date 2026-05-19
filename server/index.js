@@ -46,10 +46,9 @@ app.get("/", (req, res) => {
   });
 });
 
-// Placeholder for routes — we will add these tomorrow
-// app.use('/api/auth', authRoutes)
-// app.use('/api/password', passwordRoutes)
-// app.use('/api/history', historyRoutes)
+// Routes
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
 
 // Handle routes that do not exist
 app.use((req, res) => {
