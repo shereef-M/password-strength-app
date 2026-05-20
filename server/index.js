@@ -4,19 +4,19 @@ const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
 
-// Load environment variables from .env file
+// Load environment variables
 dotenv.config();
 
 // Connect to MongoDB
 connectDB();
 
-// Create the Express application
+// Create Express app
 const app = express();
 
-// Middleware: parse incoming JSON requests
+// Middleware: parse JSON
 app.use(express.json());
 
-// Middleware: enable CORS so React frontend can communicate with this server
+// Middleware: CORS
 app.use(
   cors({
     origin:
@@ -27,7 +27,7 @@ app.use(
   }),
 );
 
-// Middleware: rate limiting — maximum 100 requests per 15 minutes per IP
+// Middleware: rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -37,7 +37,7 @@ const limiter = rateLimit({
 });
 app.use("/api", limiter);
 
-// Health check route — confirms server is running
+// Health check route
 app.get("/", (req, res) => {
   res.json({
     message: "PassGuard API is running",
@@ -48,13 +48,19 @@ app.get("/", (req, res) => {
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
+const passwordRoutes = require("./routes/passwordRoutes");
+const historyRoutes = require("./routes/historyRoutes");
+
 app.use("/api/auth", authRoutes);
+app.use("/api/password", passwordRoutes);
+app.use("/api/history", historyRoutes);
 
 // Handle routes that do not exist
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
-// Start the server
+
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
