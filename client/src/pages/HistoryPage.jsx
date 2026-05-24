@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import HistoryCard from "../components/HistoryCard";
 import api from "../utils/api";
-import { FiClock, FiTrash2 } from "react-icons/fi";
+import { FiClock, FiShield } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const HistoryPage = () => {
   const [history, setHistory] = useState([]);
@@ -35,15 +36,23 @@ const HistoryPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 px-4 py-8">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-surface px-4 py-10 page-fade">
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
-          <FiClock className="text-indigo-400" size={24} />
+        <div className="flex items-center gap-4 mb-8">
+          <div
+            className="bg-primary-glow border border-border
+            p-3 rounded-xl shadow-glow-sm"
+          >
+            <FiClock className="text-primary" size={28} />
+          </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">Check History</h1>
-            <p className="text-slate-400 text-sm">
-              Welcome back, {user?.username}
+            <h1 className="text-3xl font-bold text-white">Check History</h1>
+            <p className="text-slate-400 text-lg mt-0.5">
+              Welcome back,{" "}
+              <span className="text-primary font-semibold">
+                {user?.username}
+              </span>
             </p>
           </div>
         </div>
@@ -51,8 +60,8 @@ const HistoryPage = () => {
         {/* Error */}
         {error && (
           <div
-            className="bg-red-900/30 border border-red-700/50 rounded-lg
-            px-4 py-3 text-red-300 text-sm mb-4"
+            className="bg-red-900/20 border border-red-700/40
+            rounded-xl px-5 py-4 text-red-300 text-lg mb-6"
           >
             {error}
           </div>
@@ -60,27 +69,50 @@ const HistoryPage = () => {
 
         {/* Loading */}
         {loading && (
-          <div className="text-center text-slate-400 py-12">
-            Loading history...
+          <div className="flex items-center justify-center py-16 gap-3">
+            <div
+              className="w-6 h-6 border-2 border-primary
+              border-t-transparent rounded-full animate-spin"
+            />
+            <span className="text-slate-400 text-lg">Loading history...</span>
           </div>
         )}
 
         {/* Empty state */}
         {!loading && history.length === 0 && (
-          <div className="text-center py-12">
-            <FiClock className="text-slate-600 mx-auto mb-3" size={40} />
-            <p className="text-slate-400">No checks yet</p>
-            <p className="text-slate-500 text-sm mt-1">
+          <div className="text-center py-16">
+            <div className="flex justify-center mb-4">
+              <div
+                className="bg-surface-2 border border-border
+                p-5 rounded-full"
+              >
+                <FiClock className="text-slate-600" size={40} />
+              </div>
+            </div>
+            <p className="text-slate-300 text-xl font-semibold mb-2">
+              No checks yet
+            </p>
+            <p className="text-slate-500 text-lg mb-6">
               Go to the home page and check a password to see it here
             </p>
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 bg-primary
+                hover:bg-primary-dark text-white px-6 py-3 rounded-xl
+                text-lg font-semibold transition-all duration-200
+                btn-press shadow-glow-sm"
+            >
+              <FiShield size={20} />
+              Check a password
+            </Link>
           </div>
         )}
 
         {/* History list */}
         {!loading && history.length > 0 && (
-          <div className="space-y-3">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-slate-400 text-sm">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-slate-400 text-lg">
                 {history.length} record{history.length !== 1 ? "s" : ""}
               </span>
             </div>

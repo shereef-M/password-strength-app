@@ -10,22 +10,28 @@ const HomePage = () => {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen bg-surface page-fade">
       {/* Hero section */}
-      <div
-        className="bg-gradient-to-b from-slate-800 to-slate-900
-        px-6 py-16 text-center"
-      >
+      <div className="bg-hero-gradient px-6 py-16 text-center">
         <div className="max-w-3xl mx-auto">
           <div className="flex justify-center mb-6">
-            <div className="bg-indigo-600/20 p-5 rounded-full">
-              <FiShield className="text-indigo-400" size={52} />
+            <div
+              className="bg-primary-glow border border-border
+              p-5 rounded-full shadow-glow"
+            >
+              <FiShield className="text-primary" size={56} />
             </div>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-5">
-            Is Your Password Safe?
+          <h1
+            className="text-4xl sm:text-5xl font-bold text-white mb-5
+            leading-tight"
+          >
+            Is Your Password <span className="text-primary">Safe?</span>
           </h1>
-          <p className="text-slate-400 text-xl sm:text-2xl leading-relaxed">
+          <p
+            className="text-slate-400 text-xl sm:text-2xl leading-relaxed
+            max-w-2xl mx-auto"
+          >
             Check your password strength and find out if it has been exposed in
             a data breach — privately and securely.
           </p>
@@ -34,14 +40,18 @@ const HomePage = () => {
 
       {/* Main card */}
       <div className="max-w-3xl mx-auto px-6 py-10">
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 p-8 sm:p-10">
+        <div
+          className="bg-surface-card rounded-2xl border border-border
+          p-8 sm:p-10 shadow-card"
+        >
           <PasswordInput onPasswordChange={setCurrentPassword} />
           <BreachChecker password={currentPassword} />
           {!user && currentPassword && (
-            <p className="text-center text-base text-slate-500 mt-5">
+            <p className="text-center text-base text-slate-500 mt-6">
               <Link
                 to="/register"
-                className="text-indigo-400 hover:text-indigo-300 text-lg"
+                className="text-primary hover:text-primary-light
+                  text-lg font-medium transition-colors"
               >
                 Create an account
               </Link>{" "}
@@ -54,28 +64,29 @@ const HomePage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-8">
           {[
             {
-              icon: <FiZap className="text-indigo-400" size={28} />,
+              icon: <FiZap className="text-primary" size={30} />,
               title: "Real-time Analysis",
               desc: "Instant feedback as you type",
             },
             {
-              icon: <FiShield className="text-green-400" size={28} />,
+              icon: <FiShield className="text-primary" size={30} />,
               title: "Privacy First",
               desc: "Your password never leaves your device",
             },
             {
-              icon: <FiLock className="text-blue-400" size={28} />,
+              icon: <FiLock className="text-primary" size={30} />,
               title: "Breach Detection",
               desc: "Checks against 800M+ leaked passwords",
             },
           ].map((feature, i) => (
             <div
               key={i}
-              className="bg-slate-800/50 border border-slate-700
-              rounded-xl p-6 text-center"
+              className="bg-surface-2 border border-border rounded-xl
+                p-6 text-center hover:border-border-hover transition-all
+                duration-300 hover:shadow-glow-sm"
             >
               <div className="flex justify-center mb-3">{feature.icon}</div>
-              <h3 className="text-white text-lg font-semibold mb-1">
+              <h3 className="text-white text-lg font-semibold mb-2">
                 {feature.title}
               </h3>
               <p className="text-slate-400 text-base">{feature.desc}</p>

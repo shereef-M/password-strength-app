@@ -36,43 +36,58 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
+    <div
+      className="min-h-screen bg-surface flex items-center
+      justify-center px-4 page-fade"
+    >
+      <div className="w-full max-w-lg">
         {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-3">
-            <div className="bg-indigo-600/20 p-3 rounded-full">
-              <FiShield className="text-indigo-400" size={32} />
+        <div className="text-center mb-10">
+          <div className="flex justify-center mb-4">
+            <div
+              className="bg-primary-glow border border-border
+              p-4 rounded-full shadow-glow"
+            >
+              <FiShield className="text-primary" size={40} />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white">Welcome back</h1>
-          <p className="text-slate-400 mt-2 text-lg">
-            Sign in to your PassGuard account
+          <h1 className="text-4xl font-bold text-white mb-2">
+            Create your account
+          </h1>
+          <p className="text-slate-400 text-xl">
+            Start checking your passwords for free
           </p>
         </div>
 
         {/* Form card */}
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 p-10">
+        <div
+          className="bg-surface-card rounded-2xl border border-border
+          p-10 shadow-card"
+        >
+          {/* Error message */}
           {error && (
             <div
-              className="bg-red-900/30 border border-red-700/50 rounded-lg
-              px-4 py-3 text-red-300 text-sm mb-4"
+              className="bg-red-900/20 border border-red-700/40
+              rounded-xl px-5 py-4 text-red-300 text-lg mb-6 slide-down"
             >
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Username field */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                className="block text-lg font-semibold
+                text-slate-300 mb-2"
+              >
                 Username
               </label>
               <div className="relative">
                 <FiUser
-                  className="absolute left-3 top-1/2 -translate-y-1/2
-                  text-slate-400"
-                  size={16}
+                  className="absolute left-4 top-1/2 -translate-y-1/2
+                    text-slate-500"
+                  size={20}
                 />
                 <input
                   type="text"
@@ -81,24 +96,28 @@ const RegisterPage = () => {
                   placeholder="yourname"
                   required
                   minLength={3}
-                  className="w-full bg-slate-700 border border-slate-600 rounded-xl
-  pl-12 pr-4 py-4 text-white text-lg placeholder-slate-500
-  focus:outline-none focus:border-indigo-500 focus:ring-2
-  focus:ring-indigo-500 transition-colors"
+                  className="w-full bg-surface-input border-2 border-border
+                    rounded-xl pl-12 pr-4 py-4 text-white text-lg
+                    placeholder-slate-600 focus:outline-none
+                    focus:border-primary transition-all duration-300
+                    input-focus"
                 />
               </div>
             </div>
 
             {/* Email field */}
             <div>
-              <label className="block text-lg font-semibold text-slate-300 mb-2">
+              <label
+                className="block text-lg font-semibold
+                text-slate-300 mb-2"
+              >
                 Email address
               </label>
               <div className="relative">
                 <FiMail
-                  className="absolute left-3 top-1/2 -translate-y-1/2
-                  text-slate-400"
-                  size={16}
+                  className="absolute left-4 top-1/2 -translate-y-1/2
+                    text-slate-500"
+                  size={20}
                 />
                 <input
                   type="email"
@@ -106,24 +125,28 @@ const RegisterPage = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="w-full bg-slate-700 border border-slate-600 rounded-lg
-                    pl-10 pr-4 py-3 text-white placeholder-slate-500
-                    focus:outline-none focus:border-indigo-500 focus:ring-1
-                    focus:ring-indigo-500 transition-colors"
+                  className="w-full bg-surface-input border-2 border-border
+                    rounded-xl pl-12 pr-4 py-4 text-white text-lg
+                    placeholder-slate-600 focus:outline-none
+                    focus:border-primary transition-all duration-300
+                    input-focus"
                 />
               </div>
             </div>
 
             {/* Password field */}
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">
+              <label
+                className="block text-lg font-semibold
+                text-slate-300 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
                 <FiLock
-                  className="absolute left-3 top-1/2 -translate-y-1/2
-                  text-slate-400"
-                  size={16}
+                  className="absolute left-4 top-1/2 -translate-y-1/2
+                    text-slate-500"
+                  size={20}
                 />
                 <input
                   type="password"
@@ -131,10 +154,11 @@ const RegisterPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="At least 6 characters"
                   required
-                  className="w-full bg-slate-700 border border-slate-600 rounded-lg
-                    pl-10 pr-4 py-3 text-white placeholder-slate-500
-                    focus:outline-none focus:border-indigo-500 focus:ring-1
-                    focus:ring-indigo-500 transition-colors"
+                  className="w-full bg-surface-input border-2 border-border
+                    rounded-xl pl-12 pr-4 py-4 text-white text-lg
+                    placeholder-slate-600 focus:outline-none
+                    focus:border-primary transition-all duration-300
+                    input-focus"
                 />
               </div>
             </div>
@@ -143,19 +167,35 @@ const RegisterPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-700
-  disabled:text-slate-500 text-white text-xl font-semibold py-4 rounded-xl
-  transition-colors mt-3"
+              className="w-full bg-primary hover:bg-primary-dark
+                disabled:bg-surface-3 disabled:text-slate-600
+                text-white text-xl font-semibold py-4 rounded-xl
+                transition-all duration-200 mt-2 btn-press
+                shadow-glow-sm hover:shadow-glow"
             >
-              {loading ? "Creating account..." : "Create account"}
+              {loading ? (
+                <div className="flex items-center justify-center gap-3">
+                  <div
+                    className="w-5 h-5 border-2 border-white
+                    border-t-transparent rounded-full animate-spin"
+                  />
+                  <span>Creating account...</span>
+                </div>
+              ) : (
+                "Create account"
+              )}
             </button>
           </form>
         </div>
 
         {/* Login link */}
-        <p className="text-center text-slate-400 text-sm mt-4">
+        <p className="text-center text-slate-400 text-lg mt-6">
           Already have an account?{" "}
-          <Link to="/login" className="text-indigo-400 hover:text-indigo-300">
+          <Link
+            to="/login"
+            className="text-primary hover:text-primary-light
+              font-semibold transition-colors duration-200"
+          >
             Sign in
           </Link>
         </p>

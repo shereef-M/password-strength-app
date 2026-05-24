@@ -22,42 +22,52 @@ const PasswordInput = ({ onPasswordChange }) => {
 
   return (
     <div className="w-full">
-      <label className="block text-lg font-semibold text-slate-300 mb-3">
+      <label className="block text-xl font-semibold text-slate-200 mb-3">
         Enter Password
       </label>
+
       <div className="relative">
         <input
           type={showPassword ? "text" : "password"}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Type or paste your password..."
-          className="w-full bg-slate-700 border border-slate-600 rounded-xl
-            px-5 py-4 pr-28 text-white text-xl placeholder-slate-500
-            focus:outline-none focus:border-indigo-500 focus:ring-2
-            focus:ring-indigo-500 transition-colors"
+          className="w-full bg-surface-input border-2 border-border
+            rounded-xl px-5 py-4 pr-28 text-white text-xl
+            placeholder-slate-600 focus:outline-none
+            focus:border-primary transition-all duration-300
+            input-focus"
         />
+
         <div
           className="absolute right-3 top-1/2 -translate-y-1/2
-          flex items-center gap-2"
+          flex items-center gap-1"
         >
+          {/* Generate password button */}
           <button
             onClick={handleGenerate}
             title="Generate strong password"
-            className="p-2 text-slate-400 hover:text-indigo-400
-              transition-colors rounded-lg"
+            className="p-2.5 text-slate-400 hover:text-primary
+              transition-colors duration-200 rounded-lg
+              hover:bg-primary-glow btn-press"
           >
-            <FiRefreshCw size={20} />
+            <FiRefreshCw size={22} />
           </button>
+
+          {/* Show/hide password button */}
           <button
             onClick={() => setShowPassword(!showPassword)}
             title={showPassword ? "Hide password" : "Show password"}
-            className="p-2 text-slate-400 hover:text-indigo-400
-              transition-colors rounded-lg"
+            className="p-2.5 text-slate-400 hover:text-primary
+              transition-colors duration-200 rounded-lg
+              hover:bg-primary-glow btn-press"
           >
-            {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+            {showPassword ? <FiEyeOff size={22} /> : <FiEye size={22} />}
           </button>
         </div>
       </div>
+
+      {/* Strength meter appears as user types */}
       {password && <StrengthMeter analysis={analysis} />}
     </div>
   );
