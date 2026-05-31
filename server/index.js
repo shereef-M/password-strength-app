@@ -19,10 +19,12 @@ app.use(express.json());
 // Middleware: CORS
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "development"
-        ? ["http://localhost:3000", "http://localhost:5173"]
-        : process.env.FRONTEND_URL,
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "https://passguard-three.vercel.app",
+      process.env.FRONTEND_URL,
+    ].filter(Boolean),
     credentials: true,
   }),
 );
