@@ -4,7 +4,7 @@
 
 **Version:** 1.0  
 **Date:** May 2026  
-**Author:** [Abuabakar Muhammad Sherif], [Madu-Uwechie Chukwunonso Noel], [Adriel Madukwe Ogbureke], [Stefan Birch Olufikayo]  
+**Author:** Abuabakar Muhammad Sherif, Madu-Uwechie Chukwunonso Noel, Adriel Madukwe Ogbureke, Stefan Birch Olufikayo
 **Institution:** Nile University of Nigeria
 **Course:** Web Application Development (SEN 302)
 **Status:** Final
@@ -40,7 +40,6 @@ The system will NOT:
 ### 1.3 Definitions and Abbreviations
 
 Term - Definition
-
 MERN - MongoDB, Express.js, React.js, Node.js — a full-stack JavaScript framework
 SRS - Software Requirements Specification  
 SDLC - Software Development Lifecycle  

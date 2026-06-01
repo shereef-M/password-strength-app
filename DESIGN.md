@@ -4,9 +4,9 @@
 
 **Version:** 1.0  
 **Date:** June 2026  
-**Group Members:** [Abuabakar Muhammad Sherif], [Madu-Uwechie Chukwunonso Noel], [Adriel Madukwe Ogbureke], [Stefan Birch Olufikayo]  
-**Institution:** [NILE UNIVERSITY OF NIGERIA]  
-**Course:** [WEB APPLICATION DEVELOPMENT (SEN 302)]  
+**Group Members:** Abuabakar Muhammad Sherif, Madu-Uwechie Chukwunonso Noel, Adriel Madukwe Ogbureke, Stefan Birch Olufikayo
+**Institution:** NILE UNIVERSITY OF NIGERIA
+**Course:** WEB APPLICATION DEVELOPMENT (SEN 302)
 **Live Application:** https://passguard-three.vercel.app  
 **GitHub Repository:** https://github.com/shereef-M/password-strength-app
 
