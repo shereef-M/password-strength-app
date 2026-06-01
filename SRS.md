@@ -4,7 +4,7 @@
 
 **Version:** 1.0  
 **Date:** May 2026  
-**Author:** Abubakar Muhammad Sherif
+**Author:** [Abuabakar Muhammad Sherif], [Madu-Uwechie Chukwunonso Noel], [Adriel Madukwe Ogbureke], [Stefan Birch Olufikayo]  
 **Institution:** Nile University of Nigeria
 **Course:** Web Application Development (SEN 302)
 **Status:** Final
