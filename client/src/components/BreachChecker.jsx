@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiShield, FiAlertTriangle } from "react-icons/fi";
+import SHA1 from "crypto-js/sha1";
 import api from "../utils/api";
 
 const BreachChecker = ({ password }) => {
@@ -17,7 +18,8 @@ const BreachChecker = ({ password }) => {
     setResult(null);
 
     try {
-      const response = await api.post("/password/check-breach", { password });
+      const hash = SHA1(password).toString().toUpperCase();
+      const response = await api.post("/password/check-breach", { hash });
       setResult(response.data);
     } catch (err) {
       setError(
@@ -28,6 +30,9 @@ const BreachChecker = ({ password }) => {
       setLoading(false);
     }
   };
+
+  // ...rest of the component stays exactly the same
+
 
   return (
     <div className="mt-8 space-y-4">

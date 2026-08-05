@@ -57,39 +57,34 @@ const analysePassword = async (req, res) => {
 // @access  Public (but saves history if user is logged in)
 const checkBreach = async (req, res) => {
   try {
-    const { password } = req.body;
+    const { hash } = req.body;
 
-    // Step 1: Generate SHA-1 hash of the password
-    const sha1Hash = crypto
-      .createHash("sha1")
-      .update(password)
-      .digest("hex")
-      .toUpperCase();
+    if (!hash) {
+      return res.status(400).json({ error: "Password hash is required" });
+    }
 
-    // Step 2: Split into prefix (first 5 chars) and suffix (remaining chars)
-    const prefix = sha1Hash.substring(0, 5);
-    const suffix = sha1Hash.substring(5);
+    // Step 1: Split the incoming hash into prefix (first 5 chars) and suffix
+    const prefix = hash.substring(0, 5);
+    const suffix = hash.substring(5);
 
-    // Step 3: Send ONLY the prefix to HIBP API
+    // Step 2: Send ONLY the prefix to HIBP API
     const hibpResponse = await axios.get(
       `https://api.pwnedpasswords.com/range/${prefix}`,
       {
         headers: {
-          // This header tells HIBP we are implementing k-Anonymity padding
           "Add-Padding": "true",
         },
         timeout: 5000,
       },
     );
 
-    // Step 4: Parse the response
-    // HIBP returns lines in format: "SUFFIX:COUNT"
+    // Step 3: Parse the response
     const hashes = hibpResponse.data.split("\n");
 
-    // Step 5: Check locally if our suffix appears in the list
+    // Step 4: Check locally if our suffix appears in the list
     let breachCount = 0;
-    for (const hash of hashes) {
-      const [hashSuffix, count] = hash.split(":");
+    for (const h of hashes) {
+      const [hashSuffix, count] = h.split(":");
       if (hashSuffix.trim() === suffix) {
         breachCount = parseInt(count.trim());
         break;
@@ -98,11 +93,7 @@ const checkBreach = async (req, res) => {
 
     const breachFound = breachCount > 0;
 
-    // Step 6: Also run strength analysis
-    const strengthResult = zxcvbn(password);
-
-    // Step 7: Save to history if user is authenticated
-    // We check for an auth token but do not require it
+    // Step 5: Save to history if user is authenticated
     let historySaved = false;
     const authHeader = req.headers.authorization;
 
@@ -114,37 +105,27 @@ const checkBreach = async (req, res) => {
 
         await CheckHistory.create({
           userId: decoded.id,
-          maskedPassword: maskPassword(password),
           breachFound,
           breachCount,
-          strengthScore: strengthResult.score,
-          strengthLabel: getStrengthLabel(strengthResult.score),
         });
         historySaved = true;
       } catch (tokenError) {
-        // Token was invalid but we still return the breach result
-        // We just do not save history
         console.log(
           "Token invalid — breach check performed without saving history",
         );
       }
     }
 
-    // Step 8: Send the response
+    // Step 6: Send the response
     res.status(200).json({
       breachFound,
       breachCount,
       message: breachFound
         ? `⚠️ This password was found in ${breachCount.toLocaleString()} data breaches`
         : "✅ This password was not found in any known data breaches",
-      strength: {
-        score: strengthResult.score,
-        label: getStrengthLabel(strengthResult.score),
-      },
       historySaved,
     });
   } catch (error) {
-    // Handle HIBP API being unavailable
     if (error.code === "ECONNABORTED" || error.response?.status >= 500) {
       return res.status(503).json({
         error:
@@ -155,5 +136,3 @@ const checkBreach = async (req, res) => {
     res.status(500).json({ error: "Server error during breach check" });
   }
 };
-
-module.exports = { analysePassword, checkBreach, maskPassword };

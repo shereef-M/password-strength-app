@@ -9,22 +9,6 @@ const HistoryCard = ({ record, onDelete }) => {
     minute: "2-digit",
   });
 
-  const strengthColors = {
-    "Very Weak": "text-red-400",
-    Weak: "text-orange-400",
-    Fair: "text-yellow-400",
-    Strong: "text-blue-400",
-    "Very Strong": "text-primary",
-  };
-
-  const strengthBg = {
-    "Very Weak": "bg-red-900/20 border-red-700/40",
-    Weak: "bg-orange-900/20 border-orange-700/40",
-    Fair: "bg-yellow-900/20 border-yellow-700/40",
-    Strong: "bg-blue-900/20 border-blue-700/40",
-    "Very Strong": "bg-primary-glow border-primary",
-  };
-
   return (
     <div
       className="bg-surface-card border border-border rounded-xl
@@ -48,25 +32,10 @@ const HistoryCard = ({ record, onDelete }) => {
         </div>
 
         <div className="flex-1 min-w-0">
-          {/* Masked password and strength label */}
-          <div className="flex items-center gap-3 flex-wrap mb-2">
-            <span className="text-white font-mono text-lg font-semibold">
-              {record.maskedPassword}
-            </span>
-            <span
-              className={`text-sm font-semibold px-2 py-0.5
-              rounded-full border ${
-                strengthBg[record.strengthLabel] || "bg-surface-3 border-border"
-              } ${strengthColors[record.strengthLabel] || "text-slate-400"}`}
-            >
-              {record.strengthLabel}
-            </span>
-          </div>
-
           {/* Breach result and timestamp */}
-          <div className="flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-4 flex-wrap mb-2">
             <span
-              className={`text-base font-medium ${
+              className={`text-lg font-semibold ${
                 record.breachFound ? "text-red-400" : "text-primary"
               }`}
             >
@@ -74,6 +43,9 @@ const HistoryCard = ({ record, onDelete }) => {
                 ? `⚠️ Found in ${record.breachCount.toLocaleString()} breaches`
                 : "✅ Not breached"}
             </span>
+          </div>
+
+          <div className="flex items-center gap-4 flex-wrap">
             <span
               className="flex items-center gap-1.5
               text-sm text-slate-500"

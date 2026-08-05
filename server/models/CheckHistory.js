@@ -7,10 +7,6 @@ const checkHistorySchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    maskedPassword: {
-      type: String,
-      required: true,
-    },
     breachFound: {
       type: Boolean,
       required: true,
@@ -18,15 +14,6 @@ const checkHistorySchema = new mongoose.Schema(
     breachCount: {
       type: Number,
       default: 0,
-    },
-    strengthScore: {
-      type: Number,
-      min: 0,
-      max: 4,
-    },
-    strengthLabel: {
-      type: String,
-      enum: ["Weak", "Fair", "Good", "Strong", "Very Strong"],
     },
   },
   {
