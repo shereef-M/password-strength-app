@@ -27,10 +27,6 @@ const analysePassword = async (req, res) => {
   try {
     const { password } = req.body;
 
-    if (!password) {
-      return res.status(400).json({ error: "Password is required" });
-    }
-
     // Run zxcvbn analysis
     const result = zxcvbn(password);
 
@@ -62,10 +58,6 @@ const analysePassword = async (req, res) => {
 const checkBreach = async (req, res) => {
   try {
     const { password } = req.body;
-
-    if (!password) {
-      return res.status(400).json({ error: "Password is required" });
-    }
 
     // Step 1: Generate SHA-1 hash of the password
     const sha1Hash = crypto

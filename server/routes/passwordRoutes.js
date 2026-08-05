@@ -5,9 +5,20 @@ const {
   checkBreach,
 } = require("../controllers/passwordController");
 const checkPasswordLimiter = require("../middleware/rateLimiter");
+const validatePassword = require("../middleware/validatePassword");
 
 // Public routes — no authentication required
-router.post("/analyse", checkPasswordLimiter, analysePassword);
-router.post("/check-breach", checkPasswordLimiter, checkBreach);
+router.post(
+  "/analyse",
+  checkPasswordLimiter,
+  validatePassword,
+  analysePassword,
+);
+router.post(
+  "/check-breach",
+  checkPasswordLimiter,
+  validatePassword,
+  checkBreach,
+);
 
 module.exports = router;
