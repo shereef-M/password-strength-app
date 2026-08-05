@@ -4,7 +4,7 @@ const axios = require("axios");
 const CheckHistory = require("../models/CheckHistory");
 
 // Helper function to mask a password for storage
-// "sunshine123" becomes "su*********3"
+// "sunshine123" becomes "s*********3"
 const maskPassword = (password) => {
   if (password.length <= 2) return "*".repeat(password.length);
   return (
@@ -156,4 +156,4 @@ const checkBreach = async (req, res) => {
   }
 };
 
-module.exports = { analysePassword, checkBreach };
+module.exports = { analysePassword, checkBreach, maskPassword };
