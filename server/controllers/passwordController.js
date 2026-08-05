@@ -136,3 +136,4 @@ const checkBreach = async (req, res) => {
     res.status(500).json({ error: "Server error during breach check" });
   }
 };
+module.exports = { analysePassword, checkBreach, maskPassword };

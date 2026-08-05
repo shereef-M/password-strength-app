@@ -10,7 +10,7 @@ describe("checkBreach", () => {
       data: "003D68EB55068C33ACE09247EE4C639306:5\nAAA0000000000000000000000000000000:2",
     });
 
-    req.body = { password: "password123" };
+    req.body = { hash: "5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD" };
 
     await checkBreach(req, res);
 
@@ -25,7 +25,7 @@ describe("checkBreach", () => {
       data: "AAA0000000000000000000000000000000:2\nBBB1111111111111111111111111111111:7",
     });
 
-    req.body = { password: "SomeUniquePassword!987" };
+    req.body = { hash: "5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD" };
 
     await checkBreach(req, res);
 

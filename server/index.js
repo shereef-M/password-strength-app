@@ -12,6 +12,7 @@ connectDB();
 
 // Create Express app
 const app = express();
+app.set("trust proxy", 1);
 
 // Middleware: parse JSON
 app.use(express.json());
