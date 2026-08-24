@@ -1,11 +1,15 @@
-const express = require("express");
 const dotenv = require("dotenv");
+dotenv.config();
+
+const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
 
-// Load environment variables
-dotenv.config();
+const { serve } = require("inngest/express");
+const { inngest } = require("./inngest/client");
+const { explainBreach } = require("./inngest/functions/explainBreach");
+const breachExplainRouter = require("./routes/breachExplain");
 
 // Connect to MongoDB
 connectDB();
@@ -29,6 +33,9 @@ app.use(
     credentials: true,
   }),
 );
+
+app.use("/api/inngest", serve({ client: inngest, functions: [explainBreach] }));
+app.use("/api/breach", breachExplainRouter);
 
 // Middleware: rate limiting
 const limiter = rateLimit({

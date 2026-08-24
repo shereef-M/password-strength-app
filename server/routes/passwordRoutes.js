@@ -14,11 +14,6 @@ router.post(
   validatePassword,
   analysePassword,
 );
-router.post(
-  "/check-breach",
-  checkPasswordLimiter,
-  validatePassword,
-  checkBreach,
-);
+router.post("/check-breach", checkPasswordLimiter, checkBreach);
 
 module.exports = router;
