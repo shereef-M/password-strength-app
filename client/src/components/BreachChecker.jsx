@@ -3,11 +3,14 @@ import { useState } from "react";
 import { FiShield, FiAlertTriangle } from "react-icons/fi";
 import SHA1 from "crypto-js/sha1";
 import api from "../utils/api";
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const BreachChecker = ({ password }) => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { user } = useAuth();
   const {
     explain,
     status: explainStatus,
@@ -126,33 +129,50 @@ const BreachChecker = ({ password }) => {
           )}
           {result.breachFound && (
             <div className="mt-4">
-              <button
-                onClick={() => explain("Compromised Password", result.message)}
-                disabled={
-                  explainStatus === "loading" || explainStatus === "polling"
-                }
-                className="w-full bg-surface-3 hover:bg-surface-4 text-slate-200
-        text-lg font-medium py-3 px-6 rounded-xl transition-all duration-200
-        flex items-center justify-center gap-2 border border-border"
-              >
-                {explainStatus === "polling" || explainStatus === "loading" ? (
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-slate-300 border-t-transparent rounded-full animate-spin" />
-                    <span>Generating explanation...</span>
-                  </div>
-                ) : (
-                  <span>Explain this in plain English</span>
-                )}
-              </button>
+              {user ? (
+                <>
+                  <button
+                    onClick={() =>
+                      explain("Compromised Password", result.message)
+                    }
+                    disabled={
+                      explainStatus === "loading" || explainStatus === "polling"
+                    }
+                    className="w-full bg-surface-3 hover:bg-surface-4 text-slate-200
+            text-lg font-medium py-3 px-6 rounded-xl transition-all duration-200
+            flex items-center justify-center gap-2 border border-border"
+                  >
+                    {explainStatus === "polling" ||
+                    explainStatus === "loading" ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-slate-300 border-t-transparent rounded-full animate-spin" />
+                        <span>Generating explanation...</span>
+                      </div>
+                    ) : (
+                      <span>Explain this in plain English</span>
+                    )}
+                  </button>
 
-              {explanation && (
-                <div className="mt-3 bg-surface-2 border border-border rounded-xl px-5 py-4 text-slate-300 text-base leading-relaxed whitespace-pre-wrap slide-down">
-                  {explanation}
-                </div>
-              )}
+                  {explanation && (
+                    <div className="mt-3 bg-surface-2 border border-border rounded-xl px-5 py-4 text-slate-300 text-base leading-relaxed whitespace-pre-wrap slide-down">
+                      {explanation}
+                    </div>
+                  )}
 
-              {explainError && (
-                <p className="mt-2 text-red-400 text-sm">{explainError}</p>
+                  {explainError && (
+                    <p className="mt-2 text-red-400 text-sm">{explainError}</p>
+                  )}
+                </>
+              ) : (
+                <p className="text-base text-slate-500 text-center">
+                  <Link
+                    to="/login"
+                    className="text-primary hover:text-primary-light font-medium"
+                  >
+                    Log in
+                  </Link>{" "}
+                  to get an AI explanation of this breach
+                </p>
               )}
             </div>
           )}

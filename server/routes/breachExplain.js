@@ -7,18 +7,22 @@ const { protect } = require("../middleware/authMiddleware.js");
 const router = express.Router();
 
 router.post("/explain", protect, async (req, res) => {
-  const { breachName, breachDetails } = req.body;
+  try {
+    const { breachName, breachDetails } = req.body;
 
-  const job = await ExplainJob.create({ userId: req.user.id, breachName });
+    const job = await ExplainJob.create({ userId: req.user.id, breachName });
 
-  await inngest.send({
-    name: "breach/explain.requested",
-    data: { jobId: job._id.toString(), breachName, breachDetails },
-  });
+    await inngest.send({
+      name: "breach/explain.requested",
+      data: { jobId: job._id.toString(), breachName, breachDetails },
+    });
 
-  res.status(202).json({ jobId: job._id });
+    res.status(202).json({ jobId: job._id });
+  } catch (err) {
+    console.error("POST /explain failed:", err);
+    res.status(500).json({ error: "Failed to start explanation" });
+  }
 });
-
 router.get("/explain/:jobId", protect, async (req, res) => {
   const job = await ExplainJob.findById(req.params.jobId);
 
